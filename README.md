@@ -46,3 +46,18 @@ Step 2: Checking response to http post request
   - for this we add a post route for '/expense' path to the API class in Expense tracker.
 
 I am still keeping this to the level of the simplest code needed to pass the tests
+
+Step 3: Create a response body
+
+- for each expense, get back a uniq id
+- in this example I am passing one matcher into another, so that i can express in general terms what I am expecting out of this test
+- using include and a_kind_of
+
+```ruby
+parsed = JSON.parse(last_response.body)
+expect(parsed).to include('expense_id' => a_kind_of(Integer))
+```
+
+- this will error as the response sent back is empty at the moment: JSON::ParseError: 743: unexpected token at ''
+
+To generate the response, in the post route i need to generate a json
