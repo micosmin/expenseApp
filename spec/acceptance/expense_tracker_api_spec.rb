@@ -15,16 +15,30 @@ module ExpenseTracker
       expect(last_response.status).to eq(200)
 
       parsed = JSON.parse(last_response.body)
+
       expect(parsed).to include('expense_id' => a_kind_of(Integer))
+      
+      expense.merge('id' => parsed['expense_id'])
     end
 
     it 'records submitted expense' do
-      coffee = {
+      pending 'Need to persis expenses'
+      coffee = post_expense(
         'payee' => 'Pizza Union',
         'amount' => 10,
         'date' => '2019-4-16'
-      }
-      post_expense(coffee)
+      )
+      zoo = post_expense(
+        'payee' => 'Just pizza',
+        'amount' => 10,
+        'date' => '2019-4-15'
+      )
+
+      get '/expenses/2019-4-15'
+      expect(last_response.status).to eq(200)
+
+      expenses = JSON.parse(last_response.body)
+      expect(expenses).to contain_exactly(zoo)
     end
   end
 end

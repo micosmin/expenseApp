@@ -66,4 +66,26 @@ To generate the response, in the post route i need to generate a json
 
 Git: [master afcf746] Test: json response in body
 
-Step 4:
+Step 4: Move generating a post to a helper method
+Step 5: TDD a get request
+
+- Sent to post requests
+- Created an expectation for a response (200) when a get route is reached
+- I want the date to be the id based on which the item is retrieved
+
+Test will fail initially as the get route has not been created yet
+Once route is created, I'll write some code to save/retrieve the data
+
+```ruby
+get '/expenses/:date' do
+  JSON.generate([])
+end
+```
+
+- Before implementing code - save work
+- Add pending 'some string' in the test under consideration
+
+Step 6: Set up rackup config file to run a server locally
+Step 7: Run server locally and curl into the get request /expenses/:date
+
+- we will receive an empty JSON array back, which was generated in the get path
