@@ -32,6 +32,8 @@ class HomepageTest < Test::Unit::TestCase
 end
 ```
 
+Hard-coding test end to end - sliming the test. Will come back to implement behavior properly
+
 Step 1: Pass the test with the simplest implementation possibile
 
 - Create an app method inside the describe block. This is needed by Rack::Test
@@ -61,3 +63,7 @@ expect(parsed).to include('expense_id' => a_kind_of(Integer))
 - this will error as the response sent back is empty at the moment: JSON::ParseError: 743: unexpected token at ''
 
 To generate the response, in the post route i need to generate a json
+
+Git: [master afcf746] Test: json response in body
+
+Step 4:
