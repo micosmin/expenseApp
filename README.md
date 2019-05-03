@@ -32,9 +32,17 @@ class HomepageTest < Test::Unit::TestCase
 end
 ```
 
-Step:
-create an app method inside the describe block
+Step 1: Pass the test with the simplest implementation possibile
 
-This changes the error to
+- Create an app method inside the describe block. This is needed by Rack::Test
+- This changes the error to: NameError: uninitialized constant ExpenseTracker::API
+- For this we need to create the ExpenseTracker module with an API class
+  - we do this in a separate file called api nested in an app folder
 
-NameError: uninitialized constant ExpenseTracker::API
+Step 2: Checking response to http post request
+
+- Rack::test - has a last_response method for checking HTTP responses: expect(last_response.status).to eq(200)
+- This will return an error at the moment as we have not added any routes to our application
+  - for this we add a post route for '/expense' path to the API class in Expense tracker.
+
+I am still keeping this to the level of the simplest code needed to pass the tests
