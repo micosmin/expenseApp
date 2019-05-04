@@ -89,3 +89,36 @@ Step 6: Set up rackup config file to run a server locally
 Step 7: Run server locally and curl into the get request /expenses/:date
 
 - we will receive an empty JSON array back, which was generated in the get path
+
+Step 8: Uniy testing in isolation the HTTP layer
+
+- simulating HTTP requests through Rack::Test interface = not calling methods on the API class directly
+- testing a class through it public interface
+- HTTP interface is the public interface
+- Will isolate public-facing API from the underlying storage engine
+- testing one layer of the app at a time
+  - drive behavior of API class that routes requests to the storage engine (DB)
+
+Will be using different RSpec testings than up to now
+
+- random order RSpec
+- verbose documentation
+- testing without changes to Ruby core classes
+
+These suggestions are in spec_helper - commented out
+
+Added to RSpec.configure: `config.filter_gems_from_backtrace 'rack', 'rack-test', 'sequel', 'sinatra'` because I want to filter out the backtrace framework code from these gems
+
+To see the full backtrack i can add --backtrace or -b flag to RSpec when running the test
+
+Step 9: Sketch behavior:
+
+- break it down into broad categories
+
+`Want to see what happens when an API call succeeds or fails`
+
+- I'm using unit tests also to test Edge cases
+
+Start with sketching out the success case in the api_spec.rb file (new file)
+
+Create a unit/app folder

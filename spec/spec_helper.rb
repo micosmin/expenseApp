@@ -19,6 +19,7 @@ RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
+  config.filter_gems_from_backtrace 'rack', 'rack-test', 'sequel', 'sinatra'
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods
@@ -65,7 +66,7 @@ RSpec.configure do |config|
   #   #   - http://rspec.info/blog/2012/06/rspecs-new-expectation-syntax/
   #   #   - http://www.teaisaweso.me/blog/2013/05/27/rspecs-new-message-expectation-syntax/
   #   #   - http://rspec.info/blog/2014/05/notable-changes-in-rspec-3/#zero-monkey-patching-mode
-  #   config.disable_monkey_patching!
+  config.disable_monkey_patching!
   #
   #   # This setting enables warnings. It's recommended, but in some cases may
   #   # be too noisy due to issues in dependencies.
@@ -78,7 +79,7 @@ RSpec.configure do |config|
   #     # Use the documentation formatter for detailed output,
   #     # unless a formatter has already been configured
   #     # (e.g. via a command-line flag).
-  #     config.default_formatter = "doc"
+  config.default_formatter = 'doc'
   #   end
   #
   #   # Print the 10 slowest examples and example groups at the
@@ -90,7 +91,7 @@ RSpec.configure do |config|
   #   # order dependency and want to debug it, you can fix the order by providing
   #   # the seed, which is printed after each run.
   #   #     --seed 1234
-  #   config.order = :random
+  config.order = :random
   #
   #   # Seed global randomization in this process using the `--seed` CLI option.
   #   # Setting this allows you to use `--seed` to deterministically reproduce
