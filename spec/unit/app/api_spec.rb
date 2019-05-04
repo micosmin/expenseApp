@@ -14,13 +14,14 @@ module ExpenseTracker
     end
 
     let(:storage) { instance_double('ExpenseTracker::Storage') }
+    let(:expense) {{'some' => 'data' }}
+    before do
+      allow(storage).to receive(:record).with(expense).and_return(RecordResult.new(true, 417, nil))
+    end
 
     describe 'POST /expenses' do
       context 'when the expense is sucessfully recorded' do
         it 'returns the expense id' do
-          expense = { 'some' => 'data' }
-
-          allow(storage).to receive(:record).with(expense).and_return(RecordResult.new(true, 417, nil))
           post '/expenses', JSON.generate(expense)
 
           parsed = JSON.parse(last_response.body)
@@ -28,9 +29,6 @@ module ExpenseTracker
         end
 
         it 'responds with a 200(OK)' do
-          expense = { 'some' => 'data' }
-
-          allow(storage).to receive(:record).with(expense).and_return(RecordResult.new(true, 417, nil))
           post '/expenses', JSON.generate(expense)
 
           expect(last_response.status).to eq(200)
