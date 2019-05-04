@@ -2,10 +2,10 @@
 # Start with success path
 
 require_relative '../../../app/api.rb'
+require_relative '../../../app/storage.rb'
 require 'rack/test'
 
 module ExpenseTracker
-  RecordResult = Struct.new(:success?, :expense_id, :error_message) # status information packed up here for now
   RSpec.describe API do
     include Rack::Test::Methods # for testig HTTP requests to the API class
 

@@ -171,3 +171,29 @@ In the api:
 - use an if else statement to test for success and failure
 - raise a custom error code in sinatra: for example, use status 422 when it fails
 - generate JSON with the hash expected in the test ('error' => result.error_message)
+
+Step: 12 Define the storage class
+
+- move RecordResult struct in this class / delete from api_spec
+- require storage.rb in the test file api_spec
+
+Tests fail at the moment as they are using the fake storage
+Why do they not pass now that a storage class is defined?
+Because of this: `the ExpenseTracker::Storage class does not implement the instance method: record`
+
+- using instance_double forces us to only double real classes
+- if a class is not implemented, it raises no errors
+- once a class is implemented it will raise errors unless the specific class has the same behavior as the mocked one
+
+This is an RSpec feature: called verifying double - instance_double
+
+- test doubles mimic the interface of a real object.
+- this ensures that specs keep track with the real object
+- verifying doubles inspect the real object they are standing in for and fail the test if method signatures don't match
+
+Conclusion: implement record method in storage.rb
+
+Run tests: error message has changed to wrong number of arguments: Expected 0, got 1
+
+- this means that RSpec sees the method, but the method is not taking an argument as the test does
+- add expense argument to record method to fix this error
