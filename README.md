@@ -153,3 +153,21 @@ Implement route code
 - parse the expense sent to post
 - use the storage to record the expense
 - return JSON with expense_id
+
+Implement test for 200 ok response
+
+- Sinatra returns 200 HTTP unless an error occurs
+
+Step 11:
+
+- Test spec: expense request fails validation
+  - mock the interface of the storage to send a fail response
+  - this response is called by the api (storage is passed to the api as a mock)
+  - this mocked response will be assigned to the result variable of the API post request
+  - when it fails I'm expecting the message assigned to the api error_message
+
+In the api:
+
+- use an if else statement to test for success and failure
+- raise a custom error code in sinatra: for example, use status 422 when it fails
+- generate JSON with the hash expected in the test ('error' => result.error_message)

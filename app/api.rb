@@ -11,7 +11,13 @@ module ExpenseTracker
     post '/expenses' do
       expense = JSON.parse(request.body.read)
       result = @storage.record(expense) # save to DB
-      JSON.generate('expense_id' => result.expense_id) # return this as a reponse to this request
+      # success and error_message are created through the mock in the first iteration of thets
+      if result.success?
+        JSON.generate('expense_id' => result.expense_id) # return this as a reponse to this request
+      else
+        status 422
+        JSON.generate('error' => result.error_message)
+      end
     end
 
     get '/expenses/:date' do
