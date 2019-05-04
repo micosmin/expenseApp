@@ -122,3 +122,34 @@ Step 9: Sketch behavior:
 Start with sketching out the success case in the api_spec.rb file (new file)
 
 Create a unit/app folder
+
+- sketch behavior for successful and unsucessful call to the POST / expense route
+
+Step 10: Add behavior
+
+- First, need a storage engine, which is called from the API to create a new instance when API is initialized.
+- For testability and flexibility purposes I use dependency injection to pass a storage engine to the APP
+- Dependency injection is as simple as passing an argument to a method
+- This will allow us to create a double and mock behavior, thus removing dependency in tests and allowing me to test the API in isolation
+- One disadvantage is that the caller always has to pass an object, but I can initialize the object when it is passed to have it there as a default, but also giving me the flexibility to pass a different object
+
+Why do we need storage?
+
+- when the POST request arrives with data, the API call will tell the storage to record the information from the POST request
+- I have not tested storage yet, nor created the class, but I'm are not interested in it at the moment as I am implementing the desired behavior for the HTTP request, and will mock the storage
+
+**Doubles**
+
+- test double stands in for an object
+- called mocks, stubs, fakes or spies - same thing
+- to create a double for a particular instance of a class: instance_double with the name of the class i'm imitating
+- define the double in let to use it across the test suite
+- calling allow method from the RSpec_mocks
+  - this method configures the test double's behavior
+  - when caller (api invokes record, the double will return a new RecordResult instance)
+
+Implement route code
+
+- parse the expense sent to post
+- use the storage to record the expense
+- return JSON with expense_id
