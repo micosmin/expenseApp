@@ -1,4 +1,4 @@
-Behavior to test:
+Behavior to test :
 
 1. API saves the expense we record
 
