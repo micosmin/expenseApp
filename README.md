@@ -197,3 +197,19 @@ Run tests: error message has changed to wrong number of arguments: Expected 0, g
 
 - this means that RSpec sees the method, but the method is not taking an argument as the test does
 - add expense argument to record method to fix this error
+
+Step: 13 TDD get request
+
+- double the storage class expenses_on method to return 2 expenses, or 3..dosen't matter
+- this method will be called when the get route is hit
+- in the test, parse the http response body JSON object
+  - WHY? because the get request is set to generate a JSON object
+- set an expectation to get the 2 expenses, or 3.. set when stubbing the method expenses_on
+
+This won't work yet, as the storage class does not have the expenses_on method
+
+- set the method, without implementing it
+
+This will still not fully work, as the get route is not using the expenses_on method
+
+- implement the use of the method, without worrying how the method actually works at the moment. We only need it there as a place holder so that we can use the double
