@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require_relative './storage'
 require 'json'
 
 module ExpenseTracker

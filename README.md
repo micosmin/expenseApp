@@ -276,4 +276,7 @@ config.when_first_matching_example_defined(:db) do
 
 With the hook in place, RSpec will load the support/db.rb if any examples are loaded that have a:db tag
 
-Next: add tag to specs
+Step 17: Querying Expenses
+
+- create a failing test
+- test records a few expenses and should return only matching expenses

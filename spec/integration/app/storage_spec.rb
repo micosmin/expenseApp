@@ -38,5 +38,22 @@ module ExpenseTracker
         end
       end
     end
+
+    describe '#expenses_on' do
+      it 'returns all expenses for the provided date' do
+        result_1 = storage.record(expense.merge('date' => '2019-03-10'))
+        result_2 = storage.record(expense.merge('date' => '2019-03-10'))
+        result_3 = storage.record(expense.merge('date' => '2019-03-11'))
+
+        expect(storage.expenses_on('2019-03-10')).to contain_exactly(
+          a_hash_including(id: result_1.expense_id),
+          a_hash_including(id: result_2.expense_id)
+        )
+      end
+
+      it 'returns a blank array when tehre are no matching expenses' do
+        expect(storage.expenses_on('2019-03-10')).to eq([])
+      end
+    end
   end
 end

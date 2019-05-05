@@ -19,19 +19,18 @@ module ExpenseTracker
     end
 
     it 'records submitted expense' do
-      pending 'Need to persis expenses'
       coffee = post_expense(
         'payee' => 'Pizza Union',
-        'amount' => 10,
-        'date' => '2019-4-16'
+        'amount' => 10.0,
+        'date' => '2019-04-16'
       )
       zoo = post_expense(
         'payee' => 'Just pizza',
-        'amount' => 10,
-        'date' => '2019-4-15'
+        'amount' => 10.0,
+        'date' => '2019-04-15'
       )
 
-      get '/expenses/2019-4-15'
+      get '/expenses/2019-04-15'
       expect(last_response.status).to eq(200)
 
       expenses = JSON.parse(last_response.body)
