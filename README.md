@@ -213,3 +213,67 @@ This won't work yet, as the storage class does not have the expenses_on method
 This will still not fully work, as the get route is not using the expenses_on method
 
 - implement the use of the method, without worrying how the method actually works at the moment. We only need it there as a place holder so that we can use the double
+
+Step 14: integrating the bottom layer = storage
+
+- designing integration specs
+- using SQlite db with Sequel gem
+
+Create a configuration file which created db/test and db/production based on RACK_ENV
+To create table use a Sequel migration
+To apply migration tell Sequel to run it - configure RSpec to do this automatically when running integration tests
+
+Step 15:
+
+- TDD the record method of the storage class with a valid expense
+- TDD the record method of the storage class with an invalid expense
+
+Step 16: Restore system to clean slate after each spec
+Isolate specs with Database transactions
+
+- wrap each spec in a database transaction
+- after each example - RSpec will roll back the transaction - cancelling any writes
+- use RSpec `around` hook for this task
+
+How does it work:
+
+- you set it up in the db support file
+
+```rb
+  c.around(:example, :db) do |example|
+    DB.transaction(rollback: :always) {example.run}
+  end
+```
+
+- give it the :db tag. this will be used to signal that the example must be passed through this as it deals with the db
+- to set up :db as a tag, I added the following to the spec helper
+
+```ruby
+config.when_first_matching_example_defined(:db) do
+    require_relative 'support/db'
+  end
+```
+
+- this tells RSpec to load the support/db when the :db tag is set
+
+- RSpec calls the around hook passing it an example
+- inside the hook, we start a new transaction which will roll back once it is done
+- DB.transaction calls the inner block where RSpec will run
+- once it is done, the DB will roll back all the changes
+- around hook finishes and RSpec moves to the next example
+
+To use this, we have to add the :db tag to the examples we want to pass through this hook, and explicitly load the setup code from support/db
+
+As there might be several spec files touching the db, it's not good practice to add the support/db requiremenet in each of them.
+
+Ask RSpec to add this for all examples that use the :db tag
+
+```ruby
+config.when_first_matching_example_defined(:db) do
+    require_relative 'support/db'
+  end
+```
+
+With the hook in place, RSpec will load the support/db.rb if any examples are loaded that have a:db tag
+
+Next: add tag to specs

@@ -23,11 +23,13 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
+    sequel (5.20.0)
     sinatra (2.0.5)
       mustermann (~> 1.0)
       rack (~> 2.0)
       rack-protection (= 2.0.5)
       tilt (~> 2.0)
+    sqlite3 (1.4.1)
     tilt (2.0.9)
 
 PLATFORMS
@@ -38,7 +40,9 @@ DEPENDENCIES
   json
   rack-test
   rspec
+  sequel
   sinatra
+  sqlite3
 
 BUNDLED WITH
    2.0.1
