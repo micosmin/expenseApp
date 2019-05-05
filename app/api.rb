@@ -21,7 +21,7 @@ module ExpenseTracker
     end
 
     get '/expenses/:date' do
-      JSON.generate([]) # when hitting this route I get this back
+      JSON.generate(@storage.expenses_on(params[:date])) # when hitting this route I get this back
     end
   end
 end
