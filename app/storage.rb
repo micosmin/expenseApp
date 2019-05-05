@@ -2,7 +2,6 @@ module ExpenseTracker
   RecordResult = Struct.new(:success?, :expense_id, :error_message)
 
   class Storage
-    def record(expense)
-    end
+    def record(expense); end
   end
 end

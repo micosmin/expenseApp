@@ -13,6 +13,10 @@ module ExpenseTracker
       API.new(storage: storage)
     end
 
+    def parse(response)
+      JSON.parse(response)
+    end
+
     let(:storage) { instance_double('ExpenseTracker::Storage') }
     let(:expense) { { 'some' => 'data' } }
 
@@ -24,10 +28,7 @@ module ExpenseTracker
       context 'when the expense is sucessfully recorded' do
         it 'returns the expense id' do
           post '/expenses', JSON.generate(expense)
-
-          parsed = JSON.parse(last_response.body)
-
-          expect(parsed).to include('expense_id' => 417)
+          expect(parse(last_response.body)).to include('expense_id' => 417)
         end
 
         it 'responds with a 200(OK)' do
@@ -47,8 +48,8 @@ module ExpenseTracker
 
         it 'returns an error message' do
           post '/expenses', JSON.generate(expense) # sends a post request with the expense JSON to API
-          parsed = JSON.parse(last_response.body) # this converts the response from the API into a hash
-          expect(parsed).to include('error' => 'Expense incomplete') # expectation check if this is in the response from the API
+          # parsed = JSON.parse(last_response.body) # this converts the response from the API into a hash
+          expect(parse(last_response.body)).to include('error' => 'Expense incomplete') # expectation check if this is in the response from the API
         end
 
         it 'responds with a 422 (Unprocessable entity)' do
@@ -56,6 +57,9 @@ module ExpenseTracker
           expect(last_response.status).to eq(422) # status response comes from the API - status 422 set in the response coming from the API - raising a custom error code
         end
       end
+    end
+
+    describe 'GET /expense' do
     end
   end
 end
