@@ -59,7 +59,15 @@ module ExpenseTracker
       end
     end
 
-    describe 'GET /expense' do
+    describe 'GET /expense/' do
+      context 'when the expense exists on the given date' do
+        it 'returns the expense records as JSON'
+        it 'responds with a 200 (OK)'
+      end
+      context 'when there are no expenses on the given data' do
+        it 'returns an empty array'
+        it 'responds with a 200 (OK)'
+      end
     end
   end
 end
